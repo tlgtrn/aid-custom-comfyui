@@ -8,14 +8,14 @@
 NODES=(
     "https://github.com/ltdrdata/ComfyUI-Manager"
     "https://github.com/Fannovel16/comfyui_controlnet_aux/"
-    "https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved.git"
-    "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git"
-    "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet.git"
-    "https://github.com/cubiq/ComfyUI_IPAdapter_plus.git"
-    "https://github.com/rgthree/rgthree-comfy.git"
-    "https://github.com/jags111/efficiency-nodes-comfyui.git"
-    "https://github.com/ltdrdata/ComfyUI-Impact-Pack.git"
-    "https://github.com/pythongosssss/ComfyUI-Custom-Scripts.git"
+    "https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved"
+    "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
+    "https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
+    "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
+    "https://github.com/rgthree/rgthree-comfy"
+    "https://github.com/jags111/efficiency-nodes-comfyui"
+    "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
+    "https://github.com/pythongosssss/ComfyUI-Custom-Scripts"
 )
 
 declare -A CHECKPOINT_MODELS=(
@@ -161,7 +161,7 @@ function provisioning_print_end() {
 
 # Download from $1 URL to $2 file path
 function provisioning_download() {
-    wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+    wget -qnc --content-disposition --show-progress -e dotbytes="${4:-4M}" -O "$2/$3" "$1"
 }
 
 provisioning_start
