@@ -133,18 +133,17 @@ function provisioning_get_models() {
     mkdir -p "$dir"
     shift
     if [[ $DISK_GB_ALLOCATED -ge $DISK_GB_REQUIRED ]]; then
-        local urls=("$@")
-        shift
-        local filenames=("$@")
+        local arr=("$@")
     else
         printf "WARNING: Low disk space allocation - No models will be downloaded!\n"
         return 1
     fi
     
     printf "Downloading %s model(s) to %s...\n" "${#arr[@]}" "$dir"
-    for url in "${arr[@]}"; do
+    for filename in "${!arr[@]}"; do
+        url="${arr[$filename]}"
         printf "Downloading: %s\n" "${url}"
-        provisioning_download "${url}" "${dir}"
+        provisioning_download "${url}" "${dir}" "${filename}"
         printf "\n"
     done
 }
