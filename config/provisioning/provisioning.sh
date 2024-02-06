@@ -147,7 +147,7 @@ function provisioning_get_models() {
     
     printf "Downloading %s model(s) to %s...\n" "${#arr[@]}" "$dir"
     for filename in "${!arr[@]}"; do
-        if [[ $filename =~ ^[+-]?[0-9]+$ ]]; then
+        if ! [[ $filename =~ ^[+-]?[0-9]+$ ]]; then
             filename=false
         fi
         url="${arr[$filename]}"
