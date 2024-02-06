@@ -101,6 +101,12 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/storage/stable_diffusion/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/ipadapter" \
+        "${IPADAPTER_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/clipvision" \
+        "${CLIPVISION_MODELS[@]}"
     provisioning_print_end
 }
 
@@ -141,6 +147,9 @@ function provisioning_get_models() {
     
     printf "Downloading %s model(s) to %s...\n" "${#arr[@]}" "$dir"
     for filename in "${!arr[@]}"; do
+        if [[ $filename =~ ^[+-]?[0-9]+$ ]]; then
+            filename = false
+        fi
         url="${arr[$filename]}"
         printf "Downloading: %s\n" "${url}"
         provisioning_download "${url}" "${dir}" "${filename}"
@@ -161,7 +170,12 @@ function provisioning_print_end() {
 
 # Download from $1 URL to $2 file path
 function provisioning_download() {
-    wget -qnc --content-disposition --show-progress -e dotbytes="${4:-4M}" -O "$2/$3" "$1"
+    if [[ $3 == "false" ]]; then
+        filename=$(basename "$1")
+    else
+        filename=$3
+    fi
+    wget -qnc --content-disposition --show-progress -e dotbytes="${4:-4M}" -O "$2/$filename" "$1"
 }
 
 provisioning_start
